@@ -1,0 +1,66 @@
+# -*- mode: gitignore; -*-
+*.csv
+*.tsv
+*.sql
+*.pdf
+!WELCOME_AIM.pdf
+*.http
+.eod
+
+# python
+__pycache__/
+*$py.class
+
+# Virtualenv, pyenv, authenv
+.Python
+pyvenv.cfg
+.venv
+.python-version
+.env
+environment.yml
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+
+# emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Org-mode
+.org-id-locations
+*_archive
+
+# vim swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+# session
+Session.vim
+
+# etc
+*.DS_Store
+*.pid
+*.log
+logs/*
+static_root/
+scripts/batch/temp/*
+!.keep
+!.gitignore
+/lib
+.sass-cache/
+bower_components/
+node_modules/
+.project
+reports
+.grunt/
+
