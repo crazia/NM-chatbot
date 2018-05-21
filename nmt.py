@@ -288,8 +288,8 @@ def add_arguments(parser):
 
 
 def create_hparams(flags):
-  """Create training hparams."""
-  return tf.contrib.training.HParams(
+    """Create training hparams."""
+    return tf.contrib.training.HParams(
       # Data
       src=flags.src,
       tgt=flags.tgt,
