@@ -29,7 +29,7 @@ class ChatBot:
     def __init__(self):
         pass
 
-    def _do_something(self, input):
+    def _do_reply(self, input):
         # print(input)
         # 원 소스가 이리 되어 있삼
         infer_data = [input]
@@ -110,7 +110,7 @@ class ChatBot:
             line = sys.stdin.readline()
 
             while line:
-                print(self._do_something(line.strip()))
+                print(self._do_reply(line.strip()))
 
                 sys.stdout.write("\n> ")
                 sys.stdout.flush()
