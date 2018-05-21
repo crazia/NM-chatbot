@@ -25,6 +25,8 @@ class ChatBot:
     ckpt = None
     hparams = None
     infer_model = None
+    sess = None
+    loaded_infer_model = None
     
     def __init__(self):
         pass
@@ -34,35 +36,31 @@ class ChatBot:
         # 원 소스가 이리 되어 있삼
         infer_data = [input]
 
-        with tf.Session(
-                graph=self.infer_model.graph, config=utils.get_config_proto()) as sess:
-            loaded_infer_model = model_helper.load_model(
-                self.infer_model.model, self.ckpt, sess, 'infer')
-            sess.run(
-                self.infer_model.iterator.initializer,
-                feed_dict={
-                    self.infer_model.src_placeholder: infer_data,
-                    self.infer_model.batch_size_placeholder: self.hparams.infer_batch_size})
+        self.sess.run(
+            self.infer_model.iterator.initializer,
+            feed_dict={
+                self.infer_model.src_placeholder: infer_data,
+                self.infer_model.batch_size_placeholder: self.hparams.infer_batch_size})
 
-            # variable check
-
-            beam_width = self.hparams.beam_width
-            num_translations_per_input = max(
-                min(1, beam_width), 1)
+        # variable check
             
-            nmt_outputs, _ = loaded_infer_model.decode(sess)
-            if beam_width == 0:
-                nmt_outputs = np.expand_dims(nmt_outputs, 0)
+        beam_width = self.hparams.beam_width
+        num_translations_per_input = max(
+            min(1, beam_width), 1)
+            
+        nmt_outputs, _ = self.loaded_infer_model.decode(self.sess)
+        if beam_width == 0:
+            nmt_outputs = np.expand_dims(nmt_outputs, 0)
 
-            batch_size = nmt_outputs.shape[1]
+        batch_size = nmt_outputs.shape[1]
 
-            for sent_id in range(batch_size):
-                for beam_id in range(num_translations_per_input):
-                    translation = nmt_utils.get_translation(
-                        nmt_outputs[beam_id],
-                        sent_id,
-                        tgt_eos=self.hparams.eos,
-                        subword_option=self.hparams.subword_option)
+        for sent_id in range(batch_size):
+            for beam_id in range(num_translations_per_input):
+                translation = nmt_utils.get_translation(
+                    nmt_outputs[beam_id],
+                    sent_id,
+                    tgt_eos=self.hparams.eos,
+                    subword_option=self.hparams.subword_option)
                         
         return translation.decode('utf-8')
 
@@ -100,6 +98,19 @@ class ChatBot:
             raise ValueError("Unknown model architecture")
         self.infer_model = model_helper.create_infer_model(model_creator, hparams, scope)
 
+        # get tensorflow session
+
+        # self.sess = tf.Session(graph=self.infer_model.graph, config=utils.get_config_proto())
+        
+        # self.loaded_infer_model = model_helper.load_model(
+        #     self.infer_model.model, self.ckpt, self.sess, 'infer')
+
+        self.sess = tf.Session(graph=self.infer_model.graph, config=utils.get_config_proto())
+
+        with self.infer_model.graph.as_default():
+            self.loaded_infer_model = model_helper.load_model(
+                self.infer_model.model, self.ckpt, self.sess, 'infer')
+
     
     def run(self,flags, default_hparams):
         # load all parameters
@@ -118,6 +129,7 @@ class ChatBot:
                 line = sys.stdin.readline()
 
         except KeyboardInterrupt:
+            self.sess.close()
             sys.exit()
 
 
