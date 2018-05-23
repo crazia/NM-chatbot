@@ -79,4 +79,4 @@ python nmt.py \
 python chat.py --out_dir=/tmp/chat_model
 ```
 
-[한글 설명](http://crazia.tistory.com/ "블로그")
+[한글 설명](http://crazia.tistory.com/entry/Deep-Learning-seq2seq-%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%B1%97%EB%B4%87-Neural-Machine-Chatbot "블로그")
