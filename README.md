@@ -10,42 +10,47 @@
 
 * Make training data
 
-    ```bash
+``` bash
     mkdir -p /tmp/nmt_chat
-    ```
-    
-    Just example!
+```
+Just example!
 
-    make traing data for requesting
-    ``` bash
+make traing data for requesting
+
+``` bash
     echo -e "안녕?\n넌 누구니?\n잘 지내?" > train.req
-    ```
+```
 
-    make traing data for replying
-    ```bash
+make traing data for replying
+
+``` bash
     echo -e "안녕!\n난 코에이?\n응 잘 지내" > train.rep
-    ```
+```
 
-    make test data for requesting
-    ```bash
+make test data for requesting
+
+``` bash
     echo -e "안녕?\n넌 누구니?" > test.req
-    ```
+```
     
-    make test data for replying
-    ```bash
-    echo -e "안녕!\n난 코에이" > test.rep
-    ```
+make test data for replying
 
-    make vocab file for training. train.all means a merged file from train.req & train.rep
-    ```bash
+``` bash
+    echo -e "안녕!\n난 코에이" > test.rep
+```
+
+make vocab file for training. train.all means a merged file from train.req & train.rep
+
+``` bash
     python $PROJECT_ROOT\bin\generate_vocab < train.all > vocab.req
     cp vocab.req vocab.rep
-    ```
+```
 
-    copy all file to '/tmp/nmt_chat'
-    ```bash
+copy all file to '/tmp/nmt_chat'
+
+``` bash
     cp train.req train.rep test.req test.rep vocab.req vocab.rep /tmp/nmt_chat
-    ```
+```
     
 * Do training
 
