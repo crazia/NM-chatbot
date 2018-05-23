@@ -42,7 +42,7 @@ make test data for replying
 make vocab file for training. train.all means a merged file from train.req & train.rep
 
 ``` bash
-    python $PROJECT_ROOT\bin\generate_vocab < train.all > vocab.req
+    python $PROJECT_ROOT/bin/generate_vocab < train.all > vocab.req
     cp vocab.req vocab.rep
 ```
 
@@ -78,3 +78,5 @@ python nmt.py \
 ```bash
 python chat.py --out_dir=/tmp/chat_model
 ```
+
+[한글 설명](http://crazia.tistory.com/ "블로그")
