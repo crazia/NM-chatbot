@@ -1,11 +1,13 @@
 ## Neural Chatbot
 
-    Neural Network Chatbot from NMT([Neural Machine Translation](https://github.com/tensorflow/nmt))
+    Neural Network Chatbot from Google's Neural Machine Translation
     
     Using seq2seq(RNN) 
 
 * Running for Training
-
+    
+    Check original google source [Neural Machine Translation](https://github.com/tensorflow/nmt/ "NMT").
+    
     To install this tutorial, you need to have TensorFlow installed on your system. This tutorial requires TensorFlow Nightly. To install TensorFlow, follow the [installation instructions here.](https://www.tensorflow.org/install/)
 
 * Make training data
@@ -42,7 +44,7 @@ make test data for replying
 make vocab file for training. train.all means a merged file from train.req & train.rep
 
 ``` bash
-    python $PROJECT_ROOT/bin/generate_vocab < train.all > vocab.req
+    python $PROJECT_ROOT/core/bin/generate_vocab.py < train.all > vocab.req
     cp vocab.req vocab.rep
 ```
 
@@ -54,7 +56,7 @@ copy all file to '/tmp/nmt_chat'
     
 * Do training
 
-    Go to Project's ROOT directory and run training 
+    Go to Project's ROOT/core directory and run training 
     
 ```bash
 python nmt.py \
