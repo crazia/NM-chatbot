@@ -177,6 +177,15 @@ def add_arguments(parser):
                         Set to bpe or spm to activate subword desegmentation.\
                         """)
 
+    # Network
+    parser.add_argument("--num_layers", type=int, default=4,
+                      help="Network depth.")
+    parser.add_argument("--num_encoder_layers", type=int, default=None,
+                        help="Encoder depth, equal to num_layers if None.")
+    parser.add_argument("--num_decoder_layers", type=int, default=None,
+                        help="Decoder depth, equal to num_layers if None.")
+
+    
 def create_hparams(flags):
     """Create training hparams."""
     return tf.contrib.training.HParams(
@@ -187,6 +196,11 @@ def create_hparams(flags):
         sos=flags.sos if flags.sos else vocab_utils.SOS,
         eos=flags.eos if flags.eos else vocab_utils.EOS,
         subword_option=flags.subword_option,
+
+        # Networks
+        num_layers=flags.num_layers,  # Compatible
+        num_encoder_layers=(flags.num_encoder_layers or flags.num_layers),
+        num_decoder_layers=(flags.num_decoder_layers or flags.num_layers),
     )
 
 def main(unused_argv):
