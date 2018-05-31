@@ -1,0 +1,4 @@
+channels==2.1.1
+Django==2.0.5
+tensorflow==1.8.0
+
