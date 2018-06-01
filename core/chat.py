@@ -13,13 +13,15 @@ import gnmt_model
 import model as nmt_model
 import model_helper
 
+import constants
+
 from utils import vocab_utils
 
 from utils import misc_utils as utils
 from utils import nmt_utils
 
 
-FLAGS = None
+FLAGS = constants
 
 class ChatBot:
     ckpt = None
@@ -71,17 +73,13 @@ class ChatBot:
 
 
     def nmt_main(self, flags, default_hparams, scope=None):
-        # Job
-        jobid = flags.jobid
-        num_workers = flags.num_workers
-        
         ## Train / Decode
         out_dir = flags.out_dir
         if not tf.gfile.Exists(out_dir): tf.gfile.MakeDirs(out_dir)
 
         # Load hparams.
         self.hparams = nmt.create_or_load_hparams(
-            out_dir, default_hparams, flags.hparams_path, save_hparams=(jobid == 0))
+            out_dir, default_hparams, flags.hparams_path, save_hparams=False)
 
         self.ckpt = flags.ckpt
         if not self.ckpt:
@@ -104,11 +102,6 @@ class ChatBot:
         self.infer_model = model_helper.create_infer_model(model_creator, hparams, scope)
 
         # get tensorflow session
-
-        # self.sess = tf.Session(graph=self.infer_model.graph, config=utils.get_config_proto())
-        
-        # self.loaded_infer_model = model_helper.load_model(
-        #     self.infer_model.model, self.ckpt, self.sess, 'infer')
 
         self.sess = tf.Session(graph=self.infer_model.graph, config=utils.get_config_proto())
 
@@ -137,75 +130,14 @@ class ChatBot:
             self.sess.close()
             sys.exit()
 
-
-def add_arguments(parser):
-    """Build ArgumentParser."""
-    parser.register("type", "bool", lambda v: v.lower() == "true")
-
-    parser.add_argument('--out_dir', type=str, help="Store log/model files.", required=True)
-    parser.add_argument("--hparams_path", type=str, default=None,
-                        help=("Path to standard hparams json file that overrides"
-                              "hparams values from FLAGS."))
-
-    # Job info
-    parser.add_argument("--jobid", type=int, default=0,
-                        help="Task id of the worker.")
-    parser.add_argument("--num_workers", type=int, default=1,
-                        help="Number of workers (inference only).")
-    
-    # Misc
-    parser.add_argument("--override_loaded_hparams", type="bool", nargs="?",
-                        const=True, default=False,
-                        help="Override loaded hparams with values specified")
-
-    # Inference
-    parser.add_argument("--ckpt", type=str, default="",
-                        help="Checkpoint file to load a model for inference.")
-    parser.add_argument("--infer_batch_size", type=int, default=32,
-                        help="Batch size for inference mode.")
-    parser.add_argument("--beam_width", type=int, default=0,
-                        help=("""\
-      beam width when using beam search decoder. If 0 (default), use standard
-      decoder with greedy helper.\
-      """))
-
-    # Vocab
-    parser.add_argument("--sos", type=str, default="<s>",
-                        help="Start-of-sentence symbol.")
-    parser.add_argument("--eos", type=str, default="</s>",
-                        help="End-of-sentence symbol.")
-
-    # SPM
-    parser.add_argument("--subword_option", type=str, default="",
-                        choices=["", "bpe", "spm"],
-                        help="""\
-                        Set to bpe or spm to activate subword desegmentation.\
-                        """)
-
-    # Network
-    parser.add_argument("--num_layers", type=int, default=4,
-                      help="Network depth.")
-    parser.add_argument("--num_encoder_layers", type=int, default=None,
-                        help="Encoder depth, equal to num_layers if None.")
-    parser.add_argument("--num_decoder_layers", type=int, default=None,
-                        help="Decoder depth, equal to num_layers if None.")
-
-    
 def create_hparams(flags):
     """Create training hparams."""
     return tf.contrib.training.HParams(
         out_dir=flags.out_dir,
         override_loaded_hparams=flags.override_loaded_hparams,
-        infer_batch_size=flags.infer_batch_size,
-        beam_width=flags.beam_width,
-        sos=flags.sos if flags.sos else vocab_utils.SOS,
-        eos=flags.eos if flags.eos else vocab_utils.EOS,
-        subword_option=flags.subword_option,
+        src_vocab_file=flags.src_vocab_file,
+        tgt_vocab_file=flags.tgt_vocab_file,
 
-        # Networks
-        num_layers=flags.num_layers,  # Compatible
-        num_encoder_layers=(flags.num_encoder_layers or flags.num_layers),
-        num_decoder_layers=(flags.num_decoder_layers or flags.num_layers),
     )
 
 def main(unused_argv):
@@ -215,7 +147,4 @@ def main(unused_argv):
     chatbot.run(FLAGS, default_hparams)
 
 if __name__ == "__main__":
-    nmt_parser = argparse.ArgumentParser()
-    add_arguments(nmt_parser)
-    FLAGS, unparsed = nmt_parser.parse_known_args()
-    tf.app.run(main=main, argv=[sys.argv[0]] + unparsed)
+    tf.app.run(main=main, argv=[sys.argv[0]])
