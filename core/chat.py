@@ -3,6 +3,7 @@ import argparse
 import numpy as np
 import math
 import sys
+import re
 
 # other module
 
@@ -21,6 +22,11 @@ from utils import nmt_utils
 
 FLAGS = None
 
+
+def remove_special_char(s_input):
+    return re.sub("([.,!?\"':;)(])", "", s_input)
+
+
 class ChatBot:
     ckpt = None
     hparams = None
@@ -34,7 +40,7 @@ class ChatBot:
     def _do_reply(self, input):
         # print(input)
         # 원 소스가 이리 되어 있삼
-        infer_data = [input]
+        infer_data = [remove_special_char(input)]
 
         self.sess.run(
             self.infer_model.iterator.initializer,
@@ -64,7 +70,6 @@ class ChatBot:
                         
         return translation.decode('utf-8')
 
-
     def nmt_main(self, flags, default_hparams, scope=None):
         # Job
         jobid = flags.jobid
@@ -72,6 +77,7 @@ class ChatBot:
         
         ## Train / Decode
         out_dir = flags.out_dir
+
         if not tf.gfile.Exists(out_dir): tf.gfile.MakeDirs(out_dir)
 
         # Load hparams.
@@ -188,6 +194,8 @@ def add_arguments(parser):
     
 def create_hparams(flags):
     """Create training hparams."""
+
+
     return tf.contrib.training.HParams(
         out_dir=flags.out_dir,
         override_loaded_hparams=flags.override_loaded_hparams,
