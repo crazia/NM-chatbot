@@ -40,6 +40,11 @@ class ChatBot:
     def _do_reply(self, input):
         # print(input)
         # 원 소스가 이리 되어 있삼
+
+        # 입력소스가 0 일때 리턴
+        if len(input) == 0:
+            return ''
+
         infer_data = [remove_special_char(input)]
 
         self.sess.run(
