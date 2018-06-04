@@ -143,9 +143,6 @@ def create_hparams(flags):
     return tf.contrib.training.HParams(
         out_dir=flags.out_dir,
         override_loaded_hparams=flags.override_loaded_hparams,
-        src_vocab_file=flags.src_vocab_file,
-        tgt_vocab_file=flags.tgt_vocab_file,
-
     )
 
 def main(unused_argv):
