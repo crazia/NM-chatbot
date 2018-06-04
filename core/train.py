@@ -22,13 +22,13 @@ import time
 
 import tensorflow as tf
 
-import attention_model
-import gnmt_model
-import inference
-import model as nmt_model
-import model_helper
-from utils import misc_utils as utils
-from utils import nmt_utils
+from . import attention_model
+from . import gnmt_model
+from . import inference
+from . import model as nmt_model
+from . import model_helper
+from .utils import misc_utils as utils
+from .utils import nmt_utils
 
 utils.check_tensorflow_version()
 

@@ -8,18 +8,18 @@ import re
 # other module
 
 
-import nmt
-import attention_model
-import gnmt_model
-import model as nmt_model
-import model_helper
+from . import nmt
+from . import attention_model
+from . import gnmt_model
+from . import model as nmt_model
+from . import model_helper
 
-import constants
+from . import constants
 
-from utils import vocab_utils
+from .utils import vocab_utils
 
-from utils import misc_utils as utils
-from utils import nmt_utils
+from .utils import misc_utils as utils
+from .utils import nmt_utils
 
 
 FLAGS = constants

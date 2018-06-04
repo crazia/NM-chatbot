@@ -1,8 +1,13 @@
 # chat/consumers.py
 from channels.generic.websocket import WebsocketConsumer
 import json
+from core import chat
 
-class ChatConsumer(WebsocketConsumer):
+class ChatConsumer(WebsocketConsumer, chat.ChatBot):
+
+    def __init__(self):
+        print('init baby')
+    
     def connect(self):
         self.accept()
 

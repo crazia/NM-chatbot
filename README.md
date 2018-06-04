@@ -56,10 +56,10 @@ copy all file to '/tmp/nmt_chat'
     
 * Do training
 
-    Go to Project's ROOT/core directory and run training 
+    Go to Project's ROOT directory and run training 
     
 ```bash
-python nmt.py \
+python -m core.nmt \
     --attention=scaled_luong \
     --src=req --tgt=rep \
     --vocab_prefix=/tmp/nmt_chat/vocab  \
@@ -77,8 +77,10 @@ python nmt.py \
 
 * Test chatbot
 
+    Go to Project's ROOT directory and edit constants.py for *out_dir* and run
+
 ```bash
-python chat.py --out_dir=/tmp/chat_model
+python -m core.chat
 ```
 
 [한글 설명](http://crazia.tistory.com/entry/Deep-Learning-seq2seq-%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%B1%97%EB%B4%87-Neural-Machine-Chatbot "블로그")

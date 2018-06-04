@@ -23,9 +23,9 @@ import tensorflow as tf
 # TODO(rzhao): Use tf.contrib.framework.nest once 1.3 is out.
 from tensorflow.python.util import nest
 
-import attention_model
-import model_helper
-from utils import misc_utils as utils
+from . import attention_model
+from . import model_helper
+from .utils import misc_utils as utils
 
 __all__ = ["GNMTModel"]
 

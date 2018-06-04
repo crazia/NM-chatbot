@@ -25,11 +25,11 @@ import sys
 import numpy as np
 import tensorflow as tf
 
-import inference
-import train
-from utils import evaluation_utils
-from utils import misc_utils as utils
-from utils import vocab_utils
+from . import inference
+from . import train
+from .utils import evaluation_utils
+from .utils import misc_utils as utils
+from .utils import vocab_utils
 
 utils.check_tensorflow_version()
 
