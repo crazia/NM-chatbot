@@ -3,10 +3,12 @@ from channels.generic.websocket import WebsocketConsumer
 import json
 from core import chat
 
-class ChatConsumer(WebsocketConsumer, chat.ChatBot):
+chatbot = chat.ChatBot()
+default_hparams = chat.create_hparams(chat.FLAGS)
+chatbot.nmt_main(chat.FLAGS, default_hparams)
 
-    def __init__(self):
-        print('init baby')
+
+class ChatConsumer(WebsocketConsumer):
     
     def connect(self):
         self.accept()
@@ -17,7 +19,11 @@ class ChatConsumer(WebsocketConsumer, chat.ChatBot):
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
-        
-        self.send(text_data=json.dumps({
-            'message': message
-        }))
+
+        if (len(message) != 0):
+            self.send(text_data=json.dumps({
+                'message': '나  : ' +  message
+            }))
+            self.send(text_data=json.dumps({
+                'message': '코에 : ' + chatbot._do_reply(message)
+            }))
