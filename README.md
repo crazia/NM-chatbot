@@ -78,9 +78,18 @@ python -m core.nmt \
 * Test chatbot
 
     Go to Project's ROOT directory and edit constants.py for *out_dir* and run
-
-```bash
-python -m core.chat
+    
+``` bash
+export OUT_DIR='DIRECTORY FOR MODEL'
 ```
 
-[한글 설명](http://crazia.tistory.com/entry/Deep-Learning-seq2seq-%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%B1%97%EB%B4%87-Neural-Machine-Chatbot "블로그")
+``` bash
+python manage.py runserver
+```
+
+
+check [http://localhost:8000](http://localhost:8000 "chatbot url")
+
+
+[한글 설명](http://crazia.tistory.com/entry/Deep-Learning-seq2seq-%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%B1%97%EB%B4%87-Neural-Machine-Chatbot-%EC%9B%B9-%EB%B2%84%EC%A0%BC "Blog")
+

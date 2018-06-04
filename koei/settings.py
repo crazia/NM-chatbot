@@ -123,3 +123,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # ASGI_APPLICATION should be set to your outermost router
 ASGI_APPLICATION = 'koei.routing.application'
+
+# point that saved in model
+OUT_DIR = os.getenv('OUT_DIR', None)

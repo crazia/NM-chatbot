@@ -2,6 +2,12 @@
 from channels.generic.websocket import WebsocketConsumer
 import json
 from core import chat
+from django.conf import settings
+
+
+# override OUT_DIR
+if settings.OUT_DIR is not None:
+    chat.FLAGS.out_dir = settings.OUT_DIR
 
 chatbot = chat.ChatBot()
 default_hparams = chat.create_hparams(chat.FLAGS)
