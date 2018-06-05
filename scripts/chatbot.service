@@ -1,0 +1,19 @@
+[Unit]
+Description=NM chatbot
+After=network.target
+
+[Service]
+User=crazia
+WorkingDirectory=/home/crazia/work/NM-chatbot
+Environment="LANG=ko_KR.UTF-8"
+Environment="LANGUAGE=ko_KR.UTF-8"
+
+ExecStart=/bin/bash -c 'source /home/crazia/anaconda3/bin/activate /home/crazia/anaconda3/envs/port/ && /home/crazia/anaconda3/envs/port/bin/uwsgi --ini /home/crazia/work/NM-chatbot/chatbot.ini --die-on-term --logto /home/crazia/work/NM-chatbot/logs/uwsgi.log'
+KillSignal=SIGTERM
+Restart=on-failure
+Type=notify
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
+
