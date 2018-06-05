@@ -26,7 +26,7 @@ SECRET_KEY = 'n#=r8khqrfp^qqy%-u5zei7ew&s8lmgba6)zja6xq@6vee^qye'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['chat.crazia.org', ]
 
 
 # Application definition
