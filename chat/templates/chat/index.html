@@ -12,13 +12,33 @@
     <title>Chat Room</title>
 </head>
 <body>
-
-    <div class="container">
+<style>
+.bs-box  div[class^="col"] {
+	border: 1px solid white;
+	background: #f5f5f5;
+	text-align: center;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	}
+</style>
+    <div class="container bs-box">
     <!-- Content here -->
         <div class="row">
-            <textarea id="chat-log" cols="100" rows="20"></textarea><br/>
-            <input id="chat-message-input" type="text" size="100"/><br/>
-            <input id="chat-message-submit" type="button" value="Send"/>
+            <div class="col">
+                <textarea id="chat-log"  rows="20" class="form-control"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text" id="btnGroupAddon2">@</div>
+                    </div>
+                    <input class="form-control" id="chat-message-input" type="text"/>
+                    <input class="btn btn-primary" id="chat-message-submit" type="button" value="Send"/>
+                </div>
+            </div>
         </div>
     </div>
 
