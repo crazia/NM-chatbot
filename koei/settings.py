@@ -30,13 +30,13 @@ ALLOWED_HOSTS = ['chat.crazia.org',
                  'localhost',
                  '127.0.0.1',
                  '13.124.79.14',
-                 'srv.crazia.org',
-]
+                 'srv.crazia.org', ]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'bootstrap_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

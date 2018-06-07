@@ -3,6 +3,7 @@ from channels.generic.websocket import WebsocketConsumer
 import json
 from core import chat
 from django.conf import settings
+from .models import Chat
 
 
 # override OUT_DIR
@@ -15,7 +16,6 @@ chatbot.nmt_main(chat.FLAGS, default_hparams)
 
 
 class ChatConsumer(WebsocketConsumer):
-    
     def connect(self):
         self.accept()
 
@@ -28,8 +28,12 @@ class ChatConsumer(WebsocketConsumer):
 
         if (len(message) != 0):
             self.send(text_data=json.dumps({
-                'message': '나  : ' +  message
+                'message': '나  : ' + message
             }))
+            answer = chatbot._do_reply(message)
             self.send(text_data=json.dumps({
-                'message': '코에 : ' + chatbot._do_reply(message)
+                'message': '코에 : ' + answer
             }))
+            # saving chat message to database
+            c = Chat(question=message, answer=answer, verify=Chat.VERIFY_NOT)
+            c.save()
