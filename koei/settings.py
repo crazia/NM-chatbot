@@ -131,3 +131,5 @@ ASGI_APPLICATION = 'koei.routing.application'
 
 # point that saved in model
 OUT_DIR = os.getenv('OUT_DIR', None)
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
