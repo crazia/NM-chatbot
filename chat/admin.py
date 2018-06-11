@@ -4,7 +4,7 @@ from .models import Category, Chat
 
 
 class ChatAdmin(admin.ModelAdmin):
-    list_display = ('category', 'question', 'answer', 'verify')
+    list_display = ('question', 'answer', 'category', 'verify')
     list_filter = ['verify', 'category']
 
 
