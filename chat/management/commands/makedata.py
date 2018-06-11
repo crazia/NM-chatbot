@@ -91,7 +91,7 @@ class Command(BaseCommand):
         self.run_cmd(cmd)
 
         # link current - {folder}
-        cmd = f'cd data && rm current && ln -s {folder} current && cd ..'
+        cmd = f'cd data && rm -rf current && ln -s {folder} current && cd ..'
         self.run_cmd_sp(cmd)
 
         # restart chabot service 
