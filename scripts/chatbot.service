@@ -7,7 +7,7 @@ User=crazia
 WorkingDirectory=/home/crazia/work/NM-chatbot
 Environment="LANG=ko_KR.UTF-8"
 Environment="LANGUAGE=ko_KR.UTF-8"
-Environment="OUT_DIR=/home/crazia/work/data/model"
+Environment="OUT_DIR=/home/crazia/work/NM-chatbot/data/current/model"
 
 ExecStart=/bin/bash -c 'source /home/crazia/anaconda3/bin/activate /home/crazia/anaconda3/envs/port/ && /home/crazia/anaconda3/envs/port/bin/daphne -p 9000 koei.asgi:application  2>&1 >> /home/crazia/work/NM-chatbot/logs/uwsgi.log'
 KillSignal=SIGTERM
