@@ -1,4 +1,4 @@
-## Neural Chatbot
+# Neural Chatbot
 
     Neural Network Chatbot from Google's Neural Machine Translation
     
@@ -10,6 +10,65 @@
     
     To install this tutorial, you need to have TensorFlow installed on your system. This tutorial requires TensorFlow Nightly. To install TensorFlow, follow the [installation instructions here.](https://www.tensorflow.org/install/)
 
+## Training (django Version)
+
+* Download Source to $PROJECT
+
+```bash
+    git clone git@github.com:crazia/NM-chatbot.git
+```
+
+* Install requirements
+
+```bash
+    cd NM-chatbot
+    pip install -r requirements.txt    
+```
+
+* Make migration
+
+```bash
+    python manage.py migrate
+```
+
+* Create Super User for admin (id/password) 
+
+```bash
+    python manage.py createsuperuser
+```
+
+* Make initial data 
+
+```bash
+    python manage.py makedata --initial
+```
+
+* Run Server
+
+```bash
+    python manage.py runserver
+```
+
+* Go to Admin site
+
+    go to [http://localhost:8000/admin](http://localhost:8000/admin "admin url")
+    and login 
+
+* Make chat data for training
+
+    Go to [http://localhost:8000/admin/chat/chat/add/](http://localhost:8000/admin/chat/chat/add/ "add chat") 
+    and input dialog and change the contents of 4'th listbox to '검토 완료' and save.
+    
+    Repeat saving dialog for several times for training.
+    
+    
+* Make training data
+
+```bash
+    python manage.py makedata
+```    
+
+## Training (Console Version)
 * Make training data
 
 ``` bash
@@ -91,5 +150,5 @@ python manage.py runserver
 check [http://localhost:8000](http://localhost:8000 "chatbot url")
 
 
-[한글 설명](http://crazia.tistory.com/entry/Deep-Learning-seq2seq-%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%B1%97%EB%B4%87-Neural-Machine-Chatbot-%EC%9B%B9-%EB%B2%84%EC%A0%BC "Blog")
+[한글 설명](https://goo.gl/4s4cy2 "Blog")
 
