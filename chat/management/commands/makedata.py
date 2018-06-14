@@ -61,9 +61,26 @@ class Command(BaseCommand):
         
     
     def add_arguments(self, parser):
-        pass
+        # Named (optional) arguments
+        parser.add_argument(
+            '--initial',
+            action='store_true',
+            dest='initial',
+            default=False,
+            help='make initial setting',
+        )
 
     def handle(self, *args, **options):
+
+        if options['initial']:
+            # make initia setting
+            print('making initial setting for launch..')
+            cmd = f'cd data && rm -rf current && ln -s initial current && cd ..'
+            self.run_cmd_sp(cmd)
+            
+            return
+
+        # make train data and train it
         self.make_train_data(TRAIN_INPUT, TRAIN_OUTPUT)
 
         # vocabulary
