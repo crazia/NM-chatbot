@@ -18,6 +18,12 @@
     git clone git@github.com:crazia/NM-chatbot.git
 ```
 
+* Install MeCab (한글 형태소 분석용)
+
+```bash
+    bash <(curl -s https://raw.githubusercontent.com/konlpy/konlpy/master/scripts/mecab.sh)
+``` 
+
 * Install requirements
 
 ```bash
