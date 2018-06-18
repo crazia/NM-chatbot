@@ -15,6 +15,7 @@ from . import model as nmt_model
 from . import model_helper
 
 from . import constants
+from konlpy.tag import Mecab
 
 from .utils import vocab_utils
 
@@ -24,10 +25,19 @@ from .utils import nmt_utils
 
 FLAGS = constants
 
+mecab = Mecab()
 
 def remove_special_char(s_input):
     return re.sub("([.,!?\"':;)(])", "", s_input)
 
+
+def apply_nlpy(s_input):
+    """
+    형태소 분석을 통해서 교육 효율을 높인다.
+    """
+    result = mecab.morphs(s_input)
+    return ' '.join(result)
+    
 
 class ChatBot:
     ckpt = None
@@ -47,7 +57,7 @@ class ChatBot:
         if len(input) == 0:
             return ''
 
-        infer_data = [remove_special_char(input)]
+        infer_data = [apply_nlpy(remove_special_char(input))]
 
         self.sess.run(
             self.infer_model.iterator.initializer,

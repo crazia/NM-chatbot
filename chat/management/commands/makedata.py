@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from chat.models import Chat
-from core.chat import remove_special_char
+from core.chat import remove_special_char, apply_nlpy
 import subprocess
 import os
 import time
@@ -30,7 +30,7 @@ class Command(BaseCommand):
         rep = open(t_output, 'w')
 
         for chat in chats:
-            req.write(remove_special_char(chat.question)+'\n')
+            req.write(apply_nlpy(remove_special_char(chat.question))+'\n')
             rep.write(chat.answer +'\n')
         
         req.close()
