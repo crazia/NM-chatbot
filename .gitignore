@@ -3,7 +3,6 @@
 *.tsv
 *.sql
 *.pdf
-!WELCOME_AIM.pdf
 *.http
 .eod
 
@@ -63,4 +62,5 @@ node_modules/
 .project
 reports
 .grunt/
-
+data/current/
+db.sqlite3
