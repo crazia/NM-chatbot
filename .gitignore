@@ -62,5 +62,5 @@ node_modules/
 .project
 reports
 .grunt/
-data/current/
+data/current
 db.sqlite3
